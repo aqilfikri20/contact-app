@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "http://aqilfikri20.github.io/notes1",
+  "homepage": "http://aqilfikri20.github.io/contact-app",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
