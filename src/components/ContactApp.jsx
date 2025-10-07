@@ -97,7 +97,7 @@ class ContactApp extends React.Component {
       <div className="contact-app">
         <header className='contact-app__header'>
         <h1>{this.state.localeContext.locale === 'id' ? 'Aplikasi Kontak Aqil' : 'Aqil Contacts App'}</h1>
-          <Navigation logout={this.onLogout} name={this.state.authedUser.name} />
+        <Navigation logout={this.onLogout} name={this.state.authedUser.name} />
         </header>
         <main>
           <Routes>

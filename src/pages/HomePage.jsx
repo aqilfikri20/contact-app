@@ -6,7 +6,7 @@ import { deleteContact, getContacts } from '../utils/api';
 import { LocaleConsumer } from '../components/context/LocaleContext';
 
 function HomePageWrapper() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();  
 
   const keyword = searchParams.get('keyword');
 
