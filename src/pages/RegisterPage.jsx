@@ -9,15 +9,15 @@ function RegisterPage() {
   async function onRegisterHandler(user) {
     const { error } = await register(user);
     if (!error) {
-      navigate('/');
+      navigate('/login');
     }
   }
  
   return (
-    <section className='register-page'>
-      <h2>Gak perlu serius-serius ya isinya ...</h2>
+    <section className='register-page auth-card'>
+      <div className="auth-icon">*</div><p className="eyebrow">MULAI SIMPAN KONEKSI</p><h2>Buat akun Contact Club</h2><p className="auth-description">Buat akun untuk membawa kontak tersimpanmu ke mana saja.</p>
       <RegisterInput register={onRegisterHandler} />
-      <p>Kembali ke <Link to="/">Masuk</Link></p>
+      <p>Kembali ke <Link to="/">Kontak</Link> · <Link to="/login">Masuk</Link></p>
     </section>
   )
 }

@@ -1,37 +1,46 @@
-let contacts = [
-  {
-    id: 1,
-    name: "Dimas Saputra",
-    tag: "dimasmds",
-    imageUrl: "/images/dimasmds.jpeg",
-  },
-  {
-    id: 2,
-    name: "Arif Faizin",
-    tag: "arifaizin",
-    imageUrl: "/images/arifaizin.jpeg",
-  },
-  {
-    id: 3,
-    name: "Rahmat Fajri",
-    tag: "rfajri27",
-    imageUrl: "/images/rfajri27.jpeg",
-  },
-];
+const STORAGE_KEY = 'guestContacts';
+const CONTACT_CACHE_KEY = 'contactsCache';
+
+function readContacts() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  } catch {
+    return [];
+  }
+}
 
 function getContacts() {
-  return contacts;
+  return readContacts();
 }
 
 function addContact(contact) {
-  contacts = [
-    ...contacts,
-    { id: +new Date(), imageUrl: "/images/default.jpg", ...contact },
-  ];
+  const contacts = [...readContacts(), { id: `${Date.now()}-${Math.random()}`, imageUrl: '/images/default.jpg', ...contact }];
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(contacts));
+  return contacts;
+}
+
+function updateContact(id, changes) {
+  const contacts = readContacts().map((contact) => contact.id === id ? { ...contact, ...changes } : contact);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(contacts));
+  return contacts;
 }
 
 function deleteContact(id) {
-  contacts = contacts.filter((contact) => contact.id !== id);
+  const contacts = readContacts().filter((contact) => contact.id !== id);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(contacts));
+  return contacts;
 }
 
-export { getContacts, addContact, deleteContact };
+function clearContacts() {
+  localStorage.removeItem(STORAGE_KEY);
+}
+
+function getCachedContacts() {
+  try { return JSON.parse(localStorage.getItem(CONTACT_CACHE_KEY) || '[]'); } catch { return []; }
+}
+
+function cacheContacts(contacts) {
+  localStorage.setItem(CONTACT_CACHE_KEY, JSON.stringify(contacts));
+}
+
+export { getContacts, addContact, updateContact, deleteContact, clearContacts, getCachedContacts, cacheContacts };

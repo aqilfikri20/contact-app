@@ -13,8 +13,8 @@ function AddPage() {
 
   
   return (
-    <section>
-      <h2>Tambah kontak</h2>
+    <section className="add-page auth-card">
+      <div className="auth-icon">+</div><p className="eyebrow">KONEKSI BARU</p><h2>Tambah kontak</h2><p className="auth-description">Simpan detail orang yang ingin selalu kamu temukan.</p>
       <ContactInput addContact={onAddContactHandler} />
     </section>
   )

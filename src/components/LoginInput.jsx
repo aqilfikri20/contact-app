@@ -6,8 +6,9 @@ class LoginInput extends React.Component {
     super(props);
  
     this.state = {
-      email: '',
+      email: localStorage.getItem('rememberLogin') === 'true' ? localStorage.getItem('rememberedEmail') || '' : '',
       password: '',
+      remember: localStorage.getItem('rememberLogin') === 'true',
     };
  
     this.onEmailChangeHandler = this.onEmailChangeHandler.bind(this);
@@ -16,6 +17,7 @@ class LoginInput extends React.Component {
   }
  
   onEmailChangeHandler(event) {
+    if (this.state.remember) localStorage.setItem('rememberedEmail', event.target.value);
     this.setState(() => {
       return {
         email: event.target.value
@@ -37,6 +39,7 @@ class LoginInput extends React.Component {
     this.props.login({
       email: this.state.email,
       password: this.state.password,
+      remember: this.state.remember,
     });
   }
  
@@ -45,6 +48,7 @@ class LoginInput extends React.Component {
       <form onSubmit={this.onSubmitHandler} className='login-input'>
         <input type="email" placeholder='Email' value={this.state.email} onChange={this.onEmailChangeHandler} />
         <input type="password" placeholder='Password' value={this.state.password} onChange={this.onPasswordChangeHandler} />
+        <label className="remember-login"><input type="checkbox" checked={this.state.remember} onChange={(event) => { const remember = event.target.checked; localStorage.setItem('rememberLogin', String(remember)); if (remember) localStorage.setItem('rememberedEmail', this.state.email); else localStorage.removeItem('rememberedEmail'); this.setState({ remember }); }} /><span>Ingat saya <small>Simpan email dan sesi selama 1 minggu. Jika tidak dicentang, sesi berakhir setelah 1 jam.</small></span></label>
         <button>Masuk</button>
       </form>
     );
